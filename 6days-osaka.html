@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京阪奈 6 日遊手冊</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 React 核心庫 -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- 引入 Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 引入 Lucide Icons 庫 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- 子組件：圖示封裝 ---
+        const LucideIcon = ({ name, className }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        // --- 行程資料定義 ---
+        const ITINERARY_DATA = [
+            {
+                day: 1, title: "抵達關西與難波散策", icon: "plane",
+                items: [
+                    { time: "10:30", text: "抵達關西機場 (KIX)", sub: "辦理入境與取行李 (約 1hr)" },
+                    { time: "交通", text: "南海電鐵 Rapi:t (38分)", sub: "直達「難波站」" },
+                    { time: "行李", text: "民宿寄放 / 置物櫃預約", sub: "難波站內置物櫃容易額滿" },
+                    { time: "下午", text: "解散--推 心齋橋 & 美國村", sub: "藥妝、服飾、潮牌、咖啡店" },
+                    { time: "晚餐", text: "一起吃--道頓堀", sub: "集合享用大餐" },
+                    { time: "晚餐", text: "解散--推 道頓堀美食地圖", sub: "拉麵、章魚燒、大阪燒、跑跑人" }
+                ],
+                tips: "唐吉訶德建議在晚上 9 點後或早上人較少時採買。"
+            },
+            {
+                day: 2, title: "京都古都體驗 (二選一)", icon: "camera",
+                items: [
+                    { time: "交通", text: "JR 大阪站 → JR 京都站", sub: "搭乘「新快速」約 29 分鐘" },
+                    { time: "路線 A", text: "第一次來：清水寺經典之旅", sub: "清水寺 → 二三產寧坂 → 八坂神社 → 祇園" },
+                    { time: "路線 B", text: "自己規劃：範例--嵐山與稻荷", sub: "嵐山(渡月橋) → 伏見稻荷大社" },
+                    { time: "晚餐", text: "一起吃：四條河原町 / 先斗町", sub: "京都最有氣氛的餐廳聚集地" },
+                    { time: "回程", text: "JR 京都站 → 地鐵回難波", sub: "最後一班新快速約在 23:00 前" }
+                ],
+                tips: "清水寺區域多斜坡，建議穿著最舒適的運動鞋。"
+            },
+            {
+                day: 3, title: "奈良與宇治", icon: "heart",
+                items: [
+                    { time: "上午", text: "奈良公園 & 東大寺", sub: "近鐵難波 → 近鐵奈良 (約 40分)" },
+                    { time: "下午", text: "宇治平等院 & 抹茶散策", sub: "停留約 3-4 小時，享受慢活氛圍" },
+                    { time: "優化", text: "奈良 → 宇治 快速轉乘", sub: "丹波橋轉乘法：避開京都站人潮" },
+                    { time: "回程", text: "JR 宇治站 → 京都 → 大阪", sub: "約 60 分鐘車程" }
+                ],
+                tips: "奈良的鹿早上比較餓，餵食要小心；宇治商店 17:00 後陸續打烊。"
+            },
+            {
+                day: 4, title: "海遊館與文青大阪", icon: "coffee",
+                items: [
+                    { time: "上午", text: "海遊館 Kaiyukan", sub: "難波 → 本町(轉中央線) → 大阪港" },
+                    { time: "下午", text: "大阪城公園", sub: "建議搭乘園內小火車直達天守閣" },
+                    { time: "傍晚", text: "中崎町文青散步", sub: "隱藏版老宅咖啡店與選物店" },
+                    { time: "晚上", text: "梅田夜景 / 難波收尾", sub: "梅田藍天大廈看百萬夜景" }
+                ],
+                tips: "大阪城公園佔地極大，善用小火車可以節省 20 分鐘體力。"
+            },
+            {
+                day: 5, title: "環球影城 (USJ) 全日", icon: "map",
+                items: [
+                    { time: "07:00", text: "早起出發 (關鍵！)", sub: "難波 → 西九條 → 環球城" },
+                    { time: "開園", text: "APP 抽整理券", sub: "入場即抽：瑪利歐 / 哈利波特" },
+                    { time: "全日", text: "USJ 冒險之旅", sub: "善用 App 查看排隊時間" },
+                    { time: "結束", text: "JR 直回市區", sub: "若回程太累可考慮接駁巴士" }
+                ],
+                tips: "一定要先下載 USJ 官方 App 並註冊門票，入園瞬間才能搶券。"
+            },
+            {
+                day: 6, title: "最後採買與直奔機場", icon: "shopping-bag",
+                items: [
+                    { time: "採買", text: "難波最後掃貨", sub: "補齊零食、伴手禮" },
+                    { time: "9:30", text: "難波站搭乘 Rapi:t", sub: "直達關西機場 (約 38 分鐘)" },
+                    { time: "機場", text: "抵達機場櫃台", sub: "辦理登機與最後免稅店採買" }
+                ],
+                tips: "最後一天的 Rapi:t 特急券建議第一天抵達時就先劃位。"
+            }
+        ];
+
+        // --- 主程式組件 ---
+        const App = () => {
+            const [activeDay, setActiveDay] = useState(0);
+            const currentDay = ITINERARY_DATA[activeDay];
+
+            return (
+                <div className="min-h-screen bg-slate-50 text-slate-900 pb-10">
+                    {/* 頂部標題 */}
+                    <header className="bg-blue-600 text-white p-6 rounded-b-[2.5rem] shadow-lg mb-4">
+                        <div className="flex justify-between items-center mb-4">
+                            <h1 className="text-2xl font-bold flex items-center gap-2">
+                                <LucideIcon name="map" className="w-6 h-6" /> 京阪奈 6 日遊
+                            </h1>
+                            <span className="bg-blue-500/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium border border-white/20">優化版本</span>
+                        </div>
+                        <p className="opacity-90 text-sm font-light tracking-wide">2026 大阪城討伐計畫 · 旅遊手冊</p>
+                    </header>
+
+                    {/* 日期選擇器 */}
+                    <nav className="flex overflow-x-auto px-4 py-2 gap-3 no-scrollbar mb-4">
+                        {ITINERARY_DATA.map((item, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => setActiveDay(idx)}
+                                className={`flex-shrink-0 px-6 py-4 rounded-3xl transition-all duration-300 flex flex-col items-center gap-1 ${
+                                    activeDay === idx 
+                                        ? 'bg-blue-600 text-white shadow-xl transform scale-105' 
+                                        : 'bg-white text-slate-400 border border-slate-100 shadow-sm'
+                                }`}
+                            >
+                                <span className="text-[10px] uppercase font-bold tracking-widest opacity-70">Day</span>
+                                <span className="text-xl font-black">{item.day}</span>
+                            </button>
+                        ))}
+                    </nav>
+
+                    {/* 主要行程內容 */}
+                    <main className="px-4">
+                        <article className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 mb-6">
+                            {/* 行程標題與圖示 */}
+                            <section className="flex items-center gap-4 mb-8 border-b border-slate-50 pb-6">
+                                <div className="p-4 bg-blue-50 text-blue-600 rounded-2xl shadow-inner">
+                                    <LucideIcon name={currentDay.icon} className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-black text-slate-800">{currentDay.title}</h2>
+                                    <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider">Schedule Detail</p>
+                                </div>
+                            </section>
+
+                            {/* 行程時間軸 */}
+                            <section className="space-y-8">
+                                {currentDay.items.map((step, i) => (
+                                    <div key={i} className="flex gap-5 relative">
+                                        {/* 時間軸連線 */}
+                                        {i !== currentDay.items.length - 1 && (
+                                            <div className="absolute left-[19px] top-10 w-[2px] h-10 bg-slate-100"></div>
+                                        )}
+                                        
+                                        <div className="w-10 flex flex-col items-center flex-shrink-0">
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-[10px] font-bold shadow-sm ${
+                                                step.time === "交通" ? "bg-orange-50 text-orange-500 border border-orange-100" :
+                                                step.time === "9:30" ? "bg-red-50 text-red-500 border border-red-100" : "bg-slate-50 text-slate-500 border border-slate-100"
+                                            }`}>
+                                                {step.time}
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="flex-1 pt-1">
+                                            <h3 className="font-bold text-slate-800 leading-tight">{step.text}</h3>
+                                            <p className="text-sm text-slate-500 mt-1 font-light leading-relaxed">{step.sub}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </section>
+
+                            {/* 專家建議區塊 */}
+                            <footer className="mt-10 p-5 bg-amber-50/50 rounded-2xl border border-amber-100 flex gap-4">
+                                <div className="p-2 bg-amber-100 rounded-xl h-fit flex-shrink-0">
+                                    <LucideIcon name="info" className="w-4 h-4 text-amber-600" />
+                                </div>
+                                <div className="text-sm text-amber-900 leading-relaxed">
+                                    <span className="font-bold block mb-1">💡 建議</span>
+                                    <p>{currentDay.tips}</p>
+                                </div>
+                            </footer>
+                        </article>
+
+                        {/* 底部導覽資訊 */}
+                        <aside className="grid grid-cols-2 gap-4">
+                            <div className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col gap-3">
+                                <h4 className="text-[10px] font-black text-slate-300 uppercase tracking-tighter">必備項目</h4>
+                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                    <LucideIcon name="luggage" className="w-4 h-4 text-blue-500" /> ICOCA 卡
+                                </div>
+                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                    <LucideIcon name="footprints" className="w-4 h-4 text-blue-500" /> 舒適慢跑鞋
+                                </div>
+                            </div>
+                            <div className="bg-slate-900 p-5 rounded-3xl shadow-sm flex flex-col gap-3 text-white">
+                                <h4 className="text-[10px] font-black text-slate-600 uppercase tracking-tighter">10月旅行小貼士</h4>
+                                <div className="text-[10px] opacity-70 leading-normal">
+                                    氣溫約 15-23°C，建議洋蔥式穿法，晚間體感偏涼。
+                                </div>
+                                <div className="text-[10px] opacity-70 leading-normal">
+                                    避開 10/12 日本連假人潮，建議提早預約餐廳。
+                                </div>
+                            </div>
+                        </aside>
+                    </main>
+                </div>
+            );
+        };
+
+        // --- 渲染 ---
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
