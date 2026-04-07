@@ -22,6 +22,7 @@
         .hidden { display: none; }
         .fade-in { animation: fadeIn 0.3s ease-in; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen pb-24">
@@ -32,6 +33,7 @@
         <div class="flex justify-center gap-4 text-[10px] mt-2 opacity-90">
             <span><i class="fa-solid fa-calendar-days mr-1"></i>10/09 - 10/14</span>
             <span><i class="fa-solid fa-temperature-half mr-1"></i>15°C - 23°C</span>
+            <span>住宿京+阪</span>
         </div>
     </header>
 
@@ -51,33 +53,22 @@
         <section id="day-1" class="day-content fade-in">
             <div class="bg-blue-50 p-4 rounded-xl mb-4 border-l-4 border-blue-500">
                 <h2 class="font-bold text-blue-800"><i class="fa-solid fa-star mr-2"></i>今日：抵達京都 & 狐狸大社</h2>
-                <p class="text-sm text-blue-600 mt-1">住宿：京都站附近</p>
             </div>
-            
             <div class="space-y-6 ml-2">
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-blue-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-plane-arrival text-blue-500"></i></span>
                     <h3 class="font-bold text-gray-800">10:30 抵達 KIX 機場</h3>
-                    <p class="text-sm text-gray-500">領行李、至 JR 櫃檯兌換 Haruka 票券</p>
-                </div>
-                <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-blue-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-hotel text-blue-500"></i></span>
-                    <h3 class="font-bold text-gray-800">13:00 飯店 Check-in 寄放</h3>
-                    <p class="text-sm text-gray-500">放完行李後於京都站地下街或百貨用餐</p>
+                    <p class="text-sm text-gray-500">領行李、至 JR 櫃檯兌換 Haruka 直達京都站</p>
                 </div>
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-orange-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-torii-gate text-orange-500"></i></span>
                     <h3 class="font-bold text-gray-800">15:00 伏見稻荷大社</h3>
-                    <p class="text-sm text-gray-500">搭乘 JR 奈良線 (5min) 至稻荷站</p>
+                    <p class="text-sm text-gray-500">千本鳥居散策，走一小段登山道避開人潮</p>
                 </div>
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-indigo-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-moon text-indigo-500"></i></span>
-                    <h3 class="font-bold text-gray-800">18:30 京都站夜間探索</h3>
-                    <p class="text-sm text-gray-700 font-medium mt-1">✨ 行程詳解：</p>
-                    <ul class="text-xs text-gray-500 list-disc ml-4 space-y-1">
-                        <li>**空中徑路 (Skyway)**：直通拉麵小路，俯瞰京都塔。</li>
-                        <li>**大階梯燈光秀**：室外大階梯 LED 動畫表演。</li>
-                    </ul>
+                    <h3 class="font-bold text-gray-800">18:30 京都站夜間探險</h3>
+                    <p class="text-sm text-gray-500">空中路徑看京都塔、拉麵小路晚餐</p>
                 </div>
             </div>
         </section>
@@ -85,69 +76,74 @@
         <!-- Day 2 Content -->
         <section id="day-2" class="day-content hidden fade-in">
             <div class="bg-purple-50 p-4 rounded-xl mb-4 border-l-4 border-purple-500">
-                <h2 class="font-bold text-purple-800"><i class="fa-solid fa-map-location-dot mr-2"></i>今日：京都經典 / 嵐山選線</h2>
-                <p class="text-xs text-purple-600 mt-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i>注意：連休首日人潮極多</p>
+                <h2 class="font-bold text-purple-800"><i class="fa-solid fa-map-location-dot mr-2"></i>今日：京都分線（連休首日）</h2>
             </div>
 
             <!-- Group Switch -->
             <div class="flex bg-gray-200 p-1 rounded-lg mb-6">
-                <button onclick="toggleGroup('A')" id="btn-group-a" class="flex-1 py-2 rounded-md font-bold text-sm bg-white shadow-sm text-purple-600">A組 (經典東山)</button>
-                <button onclick="toggleGroup('B')" id="btn-group-b" class="flex-1 py-2 rounded-md font-bold text-sm text-gray-600">B組 (嵐山自然)</button>
+                <button onclick="toggleGroup('A', 2)" id="btn-group-a-2" class="flex-1 py-2 rounded-md font-bold text-sm bg-white shadow-sm text-purple-600">A組 (經典東山)</button>
+                <button onclick="toggleGroup('B', 2)" id="btn-group-b-2" class="flex-1 py-2 rounded-md font-bold text-sm text-gray-600">B組 (嵐山深度)</button>
             </div>
 
-            <!-- Detailed Route A -->
-            <div id="route-a" class="space-y-6 ml-2">
+            <!-- Route A (Enhanced) -->
+            <div id="route-a-2" class="space-y-6 ml-2">
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-purple-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-shrine text-purple-500"></i></span>
-                    <h3 class="font-bold text-gray-800">08:00 清水寺參拜</h3>
-                    <p class="text-sm text-gray-500">早起進場避人潮，走二三年坂、八坂神社</p>
+                    <h3 class="font-bold text-gray-800">08:00 清水寺 & 地主神社</h3>
+                    <p class="text-sm text-gray-500">清晨參拜避開人潮，造訪清水舞台與祈求良緣的地主神社。</p>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-purple-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-utensils text-purple-500"></i></span>
-                    <h3 class="font-bold text-gray-800">12:30 祇園午餐休憩</h3>
-                    <p class="text-sm text-gray-500">推薦：親子丼或豆腐料理</p>
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-purple-400 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-map-pin text-purple-400"></i></span>
+                    <h3 class="font-bold text-gray-800">10:00 二年坂/三年坂散策</h3>
+                    <p class="text-sm text-gray-500">沿途經過法觀寺「八坂塔」，這段是京都最具代表性的古街景觀。</p>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-blue-400 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-walking text-blue-400"></i></span>
-                    <h3 class="font-bold text-gray-800">14:30 下午深度/購物</h3>
-                    <p class="text-sm text-gray-700 font-medium mt-1">✨ 行程二選一：</p>
-                    <ul class="text-xs text-gray-500 list-disc ml-4 space-y-1">
-                        <li>**景點**：安井金比羅宮 (斬惡緣名所)。</li>
-                        <li>**購物**：四條河原町百貨區休息採買。</li>
-                    </ul>
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-red-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-torii-gate text-red-500"></i></span>
+                    <h3 class="font-bold text-gray-800">11:30 八坂神社 & 圓山公園</h3>
+                    <p class="text-sm text-gray-500">祈求美容與消災，圓山公園內有著名的枝垂櫻（非花季亦很清幽）。</p>
                 </div>
             </div>
 
-            <!-- Detailed Route B -->
-            <div id="route-b" class="space-y-6 ml-2 hidden">
+            <!-- Route B -->
+            <div id="route-b-2" class="space-y-6 ml-2 hidden">
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-green-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-tree text-green-500"></i></span>
-                    <h3 class="font-bold text-gray-800">08:30 嵐山攻略</h3>
-                    <p class="text-sm text-gray-500">竹林小徑 → 天龍寺 → 渡月橋</p>
+                    <h3 class="font-bold text-gray-800">08:30 嵐山竹林 & 常寂光寺</h3>
+                    <p class="text-sm text-gray-500">造訪清幽的常寂光寺，避開渡月橋人潮</p>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-green-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-train-subway text-green-500"></i></span>
-                    <h3 class="font-bold text-gray-800">13:30 嵐電回市區</h3>
-                    <p class="text-sm text-gray-500">搭乘復古路面電車回四條大宮</p>
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-green-600 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-hot-tub-person text-green-600"></i></span>
+                    <h3 class="font-bold text-gray-800">11:00 嵐電足湯體驗</h3>
+                    <p class="text-sm text-gray-500">嵐山站內足湯 (200日圓含毛巾)</p>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-green-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-leaf text-green-500"></i></span>
-                    <h3 class="font-bold text-gray-800">15:00 建仁寺放空</h3>
-                    <p class="text-sm text-gray-500">觀賞壯觀【雙龍圖】與枯山水</p>
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-green-700 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-bridge text-green-700"></i></span>
+                    <h3 class="font-bold text-gray-800">13:30 渡月橋河畔</h3>
+                    <p class="text-sm text-gray-500">欣賞桂川景色，或造訪 % Arabica 咖啡店</p>
                 </div>
             </div>
 
-            <!-- Shared Footer for Day 2 -->
+            <!-- Common Evening -->
             <div class="mt-8 pt-6 border-t-2 border-dashed border-gray-300 ml-2">
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-red-500 border-2 border-white rounded-full flex items-center justify-center z-10 shadow-sm"><i class="fa-solid fa-users text-white"></i></span>
-                    <h3 class="font-bold text-gray-800">16:30 AB組集合：白川筋</h3>
-                    <p class="text-sm text-gray-500">京都最美垂柳街道拍照會合</p>
+                    <h3 class="font-bold text-gray-800">16:30 祇園白川集合</h3>
+                    <p class="text-sm text-gray-500">AB組集合，此區為京都最美街道，適合拍照</p>
+                </div>
+                <div class="timeline-item relative pl-10 border-l-2 border-pink-200">
+                    <span class="absolute left-0 w-10 h-10 bg-pink-400 border-2 border-white rounded-full flex items-center justify-center z-10 shadow-sm"><i class="fa-solid fa-person-dress text-white"></i></span>
+                    <h3 class="font-bold text-gray-800">17:30 藝妓上班路 (花見小路)</h3>
+                    <p class="text-xs text-gray-500 mt-1">捕捉舞妓、藝妓前往茶屋出勤的身影。請保持安靜且不要阻擋去路。</p>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-red-600 border-2 border-white rounded-full flex items-center justify-center z-10 shadow-sm"><i class="fa-solid fa-camera text-white"></i></span>
-                    <h3 class="font-bold text-gray-800">17:30 花見小路</h3>
-                    <p class="text-sm text-gray-500">捕捉藝妓上班身影 (請保持禮貌)</p>
+                    <span class="absolute left-0 w-10 h-10 bg-indigo-600 border-2 border-white rounded-full flex items-center justify-center z-10 shadow-sm"><i class="fa-solid fa-masks-theater text-white"></i></span>
+                    <h3 class="font-bold text-gray-800">18:30 彌榮會館 (選修行程)</h3>
+                    <p class="text-sm text-gray-500">Gion Corner 傳統表演 (約1小時)</p>
+                    <div class="bg-gray-100 p-2 rounded mt-2 text-xs text-gray-600">
+                        <i class="fa-solid fa-circle-info mr-1"></i> 消費資訊：<br>
+                        成人票價：約 5,500 日圓<br>
+                        內容：茶道、琴、花道、雅樂、狂言、京舞及文樂
+                    </div>
                 </div>
             </div>
         </section>
@@ -155,25 +151,46 @@
         <!-- Day 3 Content -->
         <section id="day-3" class="day-content hidden fade-in">
             <div class="bg-emerald-50 p-4 rounded-xl mb-4 border-l-4 border-emerald-500">
-                <h2 class="font-bold text-emerald-800"><i class="fa-solid fa-leaf mr-2"></i>今日：宇治抹茶 & 奈良小鹿</h2>
-                <p class="text-sm text-emerald-600 mt-1">移動：京都 → 大阪難波</p>
+                <h2 class="font-bold text-emerald-800"><i class="fa-solid fa-leaf mr-2"></i>今日：抹茶之旅 vs 京都巡禮</h2>
             </div>
-            
-            <div class="space-y-6 ml-2">
+            <div class="flex bg-gray-200 p-1 rounded-lg mb-6">
+                <button onclick="toggleGroup('A', 3)" id="btn-group-a-3" class="flex-1 py-2 rounded-md font-bold text-sm bg-white shadow-sm text-emerald-600">A組 (宇治抹茶)</button>
+                <button onclick="toggleGroup('B', 3)" id="btn-group-b-3" class="flex-1 py-2 rounded-md font-bold text-sm text-gray-600">B組 (京都車站周邊)</button>
+            </div>
+            <div id="route-a-3" class="space-y-6 ml-2">
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-mug-hot text-emerald-500"></i></span>
-                    <h3 class="font-bold text-gray-800">09:00 宇治散策</h3>
-                    <p class="text-sm text-gray-500">平等院、宇治上神社、吃抹茶下午茶</p>
+                    <h3 class="font-bold text-gray-800">09:00 宇治抹茶散策</h3>
+                    <p class="text-sm text-gray-500">參拜世界遺產平等院</p>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-orange-400 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-paw text-orange-400"></i></span>
-                    <h3 class="font-bold text-gray-800">14:00 奈良公園</h3>
-                    <p class="text-sm text-gray-500">東大寺、與小鹿互動、興福寺</p>
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-emerald-600 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-utensils text-emerald-600"></i></span>
+                    <h3 class="font-bold text-gray-800">12:00 中村藤吉午餐</h3>
+                    <p class="text-sm text-gray-500">品嚐著名抹茶蕎麥麵</p>
+                </div>
+            </div>
+            <div id="route-b-3" class="space-y-6 ml-2 hidden">
+                <div class="timeline-item relative pl-10">
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-amber-600 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-place-of-worship text-amber-600"></i></span>
+                    <h3 class="font-bold text-gray-800">09:30 東本願寺</h3>
+                    <p class="text-sm text-gray-500">欣賞宏偉木造寺院</p>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-blue-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-hotel text-blue-500"></i></span>
-                    <h3 class="font-bold text-gray-800">18:30 大阪難波進駐</h3>
-                    <p class="text-sm text-gray-500">飯店 Check-in 後進攻道頓堀晚餐</p>
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-red-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-tower-observation text-red-500"></i></span>
+                    <h3 class="font-bold text-gray-800">11:30 京都塔觀景</h3>
+                    <p class="text-sm text-gray-500">俯瞰京都市景與車站採買</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t-2 border-dashed border-gray-300 ml-2">
+                <div class="timeline-item relative pl-10">
+                    <span class="absolute left-0 w-10 h-10 bg-orange-500 border-2 border-white rounded-full flex items-center justify-center z-10 shadow-sm"><i class="fa-solid fa-paw text-white"></i></span>
+                    <h3 class="font-bold text-gray-800">14:30 奈良公園集合</h3>
+                    <p class="text-sm text-gray-500">東大寺與小鹿鹿互動</p>
+                </div>
+                <div class="timeline-item relative pl-10">
+                    <span class="absolute left-0 w-10 h-10 bg-blue-700 border-2 border-white rounded-full flex items-center justify-center z-10 shadow-sm"><i class="fa-solid fa-train text-white"></i></span>
+                    <h3 class="font-bold text-gray-800">19:00 移動至大阪</h3>
+                    <p class="text-sm text-gray-500">飯店 Check-in & 難波宵夜</p>
                 </div>
             </div>
         </section>
@@ -181,25 +198,28 @@
         <!-- Day 4 Content -->
         <section id="day-4" class="day-content hidden fade-in">
             <div class="bg-sky-50 p-4 rounded-xl mb-4 border-l-4 border-sky-500">
-                <h2 class="font-bold text-sky-800"><i class="fa-solid fa-chess-rook mr-2"></i>今日：大阪經典地標巡禮</h2>
-                <p class="text-sm text-sky-600 mt-1">主題：歷史、美食與海生館</p>
+                <h2 class="font-bold text-sky-800"><i class="fa-solid fa-chess-rook mr-2"></i>今日：大阪地標與海洋冒險</h2>
             </div>
-            
             <div class="space-y-6 ml-2">
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-sky-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-fort-awesome text-sky-500"></i></span>
                     <h3 class="font-bold text-gray-800">10:00 大阪城天守閣</h3>
-                    <p class="text-sm text-gray-500">歷史巡禮，拍攝護城河美景</p>
+                    <p class="text-sm text-gray-500">登上城頂俯瞰大阪市</p>
                 </div>
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-red-400 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-fish text-red-400"></i></span>
                     <h3 class="font-bold text-gray-800">12:30 黑門市場</h3>
-                    <p class="text-sm text-gray-500">大阪人的廚房，進攻生魚片、和牛</p>
+                    <p class="text-sm text-gray-500">豪吃海鮮午餐</p>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-blue-400 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-water text-blue-400"></i></span>
-                    <h3 class="font-bold text-gray-800">15:30 海遊館</h3>
-                    <p class="text-sm text-gray-500">世界級水族館，看大鯨鯊與企鵝</p>
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-blue-400 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-shrimp text-blue-400"></i></span>
+                    <h3 class="font-bold text-gray-800">15:30 海遊館 (Kaiyukan)</h3>
+                    <p class="text-sm text-gray-500">看巨大鯨鯊，體驗世界級水族館</p>
+                </div>
+                <div class="timeline-item relative pl-10">
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-blue-600 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-ferris-wheel text-blue-600"></i></span>
+                    <h3 class="font-bold text-gray-800">18:30 天保山摩天輪</h3>
+                    <p class="text-sm text-gray-500">欣賞大阪港夜色</p>
                 </div>
             </div>
         </section>
@@ -208,23 +228,12 @@
         <section id="day-5" class="day-content hidden fade-in">
             <div class="bg-yellow-50 p-4 rounded-xl mb-4 border-l-4 border-yellow-500">
                 <h2 class="font-bold text-yellow-800"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>今日：環球影城冒險</h2>
-                <p class="text-sm text-yellow-600 mt-1">主題：任天堂 & 哈利波特</p>
             </div>
-            
             <div class="space-y-6 ml-2">
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-yellow-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-sun text-yellow-500"></i></span>
                     <h3 class="font-bold text-gray-800">07:30 提早抵達 USJ</h3>
-                    <p class="text-sm text-gray-500">準備開園衝刺瑪利歐賽車</p>
-                </div>
-                <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-yellow-600 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-gamepad text-yellow-600"></i></span>
-                    <h3 class="font-bold text-gray-800">全日 園區瘋狂玩</h3>
-                    <p class="text-sm text-gray-700 font-medium mt-1">✨ 必衝清單：</p>
-                    <ul class="text-xs text-gray-500 list-disc ml-4 space-y-1">
-                        <li>**任天堂世界**：體感遊戲與金幣挑戰。</li>
-                        <li>**哈利波特**：禁忌之旅與活米村。</li>
-                    </ul>
+                    <p class="text-sm text-gray-500">攻略任天堂世界與哈利波特</p>
                 </div>
             </div>
         </section>
@@ -233,24 +242,15 @@
         <section id="day-6" class="day-content hidden fade-in">
             <div class="bg-slate-50 p-4 rounded-xl mb-4 border-l-4 border-slate-500">
                 <h2 class="font-bold text-slate-800"><i class="fa-solid fa-bag-shopping mr-2"></i>今日：最後採買 & 賦歸</h2>
-                <p class="text-sm text-slate-600 mt-1">重點：藥妝補貨 & 直達機場</p>
             </div>
-            
             <div class="space-y-6 ml-2">
                 <div class="timeline-item relative pl-10">
                     <span class="absolute left-0 w-10 h-10 bg-white border-2 border-slate-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-cart-shopping text-slate-500"></i></span>
-                    <h3 class="font-bold text-gray-800">10:00 難波/心齋橋</h3>
-                    <p class="text-sm text-gray-500">最後的藥妝、電器補齊</p>
+                    <h3 class="font-bold text-gray-800">10:00 難波最後補貨</h3>
                 </div>
                 <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-blue-500 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-train text-blue-500"></i></span>
-                    <h3 class="font-bold text-gray-800">14:00 搭乘 Rapi:t</h3>
-                    <p class="text-sm text-gray-500">難波站直達機場 (約 38min)</p>
-                </div>
-                <div class="timeline-item relative pl-10">
-                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-slate-800 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-plane-departure text-slate-800"></i></span>
-                    <h3 class="font-bold text-gray-800">17:00 班機起飛</h3>
-                    <p class="text-sm text-gray-500">帶著滿滿回憶與行李回家</p>
+                    <span class="absolute left-0 w-10 h-10 bg-white border-2 border-slate-700 rounded-full flex items-center justify-center z-10"><i class="fa-solid fa-plane-departure text-slate-700"></i></span>
+                    <h3 class="font-bold text-gray-800">14:00 前往 KIX 機場</h3>
                 </div>
             </div>
         </section>
@@ -267,50 +267,58 @@
             <i class="fa-solid fa-box-open text-lg text-emerald-500"></i>
             <span class="text-[10px] mt-1 font-bold">寄物攻略</span>
         </button>
+        <button onclick="openModal('tip-transport')" class="text-gray-500 flex flex-col items-center">
+            <i class="fa-solid fa-address-card text-lg text-orange-500"></i>
+            <span class="text-[10px] mt-1 font-bold">交通卡</span>
+        </button>
         <button onclick="openModal('tip-geisha')" class="text-gray-500 flex flex-col items-center">
-            <i class="fa-solid fa-camera text-lg text-red-500"></i>
-            <span class="text-[10px] mt-1 font-bold">追藝妓禮儀</span>
+            <i class="fa-solid fa-camera-slash text-lg text-red-500"></i>
+            <span class="text-[10px] mt-1 font-bold">看藝妓禮儀</span>
         </button>
     </footer>
 
     <!-- Modals -->
     <div id="modal-overlay" class="fixed inset-0 bg-black/50 hidden z-[60] items-center justify-center p-6">
-        <div class="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl relative">
+        <div class="bg-white rounded-2xl w-full max-sm p-6 shadow-2xl relative max-h-[80vh] overflow-y-auto">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 p-2"><i class="fa-solid fa-xmark text-xl"></i></button>
             
             <div id="tip-outfit" class="modal-content hidden">
-                <h3 class="text-xl font-bold text-blue-600 mb-4 border-b pb-2">👗 10月穿搭建議</h3>
-                <div class="space-y-4 text-gray-600 text-sm">
-                    <p>**氣溫**：15°C ~ 23°C (秋高氣爽)</p>
-                    <p>**穿著方案**：「洋蔥式穿法」。</p>
-                    <ul class="list-disc ml-4 space-y-1">
-                        <li>**內層**：短袖或薄長袖。</li>
-                        <li>**外層**：風衣外套或針織外套 (早晚溫差大)。</li>
-                        <li>**必帶**：雨傘 (秋雨難測)、好走的運動鞋。</li>
-                    </ul>
-                </div>
+                <h3 class="text-xl font-bold text-blue-600 mb-4 border-b pb-2">👗 穿搭建議</h3>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li>• 10月氣溫：平均 15°C - 23°C。</li>
+                    <li>• 洋蔥式穿法：薄長袖外搭輕便外套。</li>
+                    <li>• 鞋子：一定要運動鞋，京都路面多碎石與階梯。</li>
+                </ul>
             </div>
 
             <div id="tip-locker" class="modal-content hidden">
-                <h3 class="text-xl font-bold text-emerald-600 mb-4 border-b pb-2">📍 車站寄物櫃建議</h3>
-                <div class="space-y-4 text-gray-600 text-sm overflow-y-auto max-h-[60vh]">
-                    <div class="bg-emerald-50 p-2 rounded">
-                        <p class="font-bold text-emerald-800">Day 3 宇治站：</p>
-                        <p>南口與北口都有置物箱。若客滿可去對面的觀光案內所詢問。</p>
-                    </div>
-                    <div class="bg-orange-50 p-2 rounded">
-                        <p class="font-bold text-orange-800">Day 3 近鐵奈良站：</p>
-                        <p>連休期間 11:00 後大櫃子幾乎必滿。建議早點出發或搜尋「Ecbo Cloak」預約人工寄存空間。</p>
-                    </div>
-                </div>
+                <h3 class="text-xl font-bold text-emerald-600 mb-4 border-b pb-2">📍 寄物攻略</h3>
+                <p class="text-sm text-gray-600 font-bold mb-2">Day 3 跨縣市必看：</p>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li>1. **京都站大型 Locker**：容易客滿，建議 9 點前卡位。</li>
+                    <li>2. **Crosta 京都**：行李寄存或配送到下間飯店。</li>
+                    <li>3. **ECBO Cloak**：線上預約店面寄存空間。</li>
+                </ul>
+            </div>
+
+            <div id="tip-transport" class="modal-content hidden">
+                <h3 class="text-xl font-bold text-orange-600 mb-4 border-b pb-2">💳 交通攻略</h3>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li>• **ICOCA/Suica**：感應搭車最方便。</li>
+                    <li>• **Haruka**：往返機場首選，需提前購票或使用優惠。</li>
+                    <li>• **計程車**：京都短程多人分擔很划算。</li>
+                </ul>
             </div>
 
             <div id="tip-geisha" class="modal-content hidden">
-                <h3 class="text-xl font-bold text-red-600 mb-4 border-b pb-2">🏮 祇園追藝妓須知</h3>
-                <ul class="space-y-3 text-gray-600 text-sm">
-                    <li>1. **禁拍私宅巷弄**：祇園部分巷弄設有「禁止攝影」立牌，違者會被罰款（¥10,000）。</li>
-                    <li>2. **保持靜默**：不要大聲喧嘩，讓她們靜靜通過。</li>
-                    <li>3. **最佳角度**：在白川筋或四條大橋附近等候，背景更美。</li>
+                <h3 class="text-xl font-bold text-red-600 mb-4 border-b pb-2">👺 看藝妓注意事項</h3>
+                <p class="text-sm text-red-500 font-bold mb-3">祇園地區全面落實嚴格禮儀：</p>
+                <ul class="text-sm text-gray-600 space-y-3">
+                    <li>1. **嚴禁拍照**：祇園私有巷道（如花見小路側邊）嚴禁拍照，違者罰款 3 萬日圓。</li>
+                    <li>2. **不可觸摸**：絕對禁止觸摸藝妓或舞妓的衣服與飾品。</li>
+                    <li>3. **不可攔路**：不可為了拍照擋在路中央或追逐她們。</li>
+                    <li>4. **保持距離**：請在街道兩旁安靜觀察，勿大聲喧嘩。</li>
+                    <li>5. **禁止飲食**：不可在花見小路邊走邊吃或抽菸。</li>
                 </ul>
             </div>
         </div>
@@ -325,15 +333,18 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        function toggleGroup(group) {
+        function toggleGroup(group, day) {
             const isA = group === 'A';
-            document.getElementById('route-a').classList.toggle('hidden', !isA);
-            document.getElementById('route-b').classList.toggle('hidden', isA);
-            document.getElementById('btn-group-a').className = isA ? 
-                "flex-1 py-2 rounded-md font-bold text-sm bg-white shadow-sm text-purple-600" : 
+            document.getElementById(`route-a-${day}`).classList.toggle('hidden', !isA);
+            document.getElementById(`route-b-${day}`).classList.toggle('hidden', isA);
+            
+            const colorClass = day === 2 ? 'text-purple-600' : 'text-emerald-600';
+            
+            document.getElementById(`btn-group-a-${day}`).className = isA ? 
+                `flex-1 py-2 rounded-md font-bold text-sm bg-white shadow-sm ${colorClass}` : 
                 "flex-1 py-2 rounded-md font-bold text-sm text-gray-600";
-            document.getElementById('btn-group-b').className = !isA ? 
-                "flex-1 py-2 rounded-md font-bold text-sm bg-white shadow-sm text-green-600" : 
+            document.getElementById(`btn-group-b-${day}`).className = !isA ? 
+                `flex-1 py-2 rounded-md font-bold text-sm bg-white shadow-sm ${colorClass}` : 
                 "flex-1 py-2 rounded-md font-bold text-sm text-gray-600";
         }
 
@@ -348,6 +359,10 @@
             document.getElementById('modal-overlay').classList.add('hidden');
             document.getElementById('modal-overlay').classList.remove('flex');
         }
+
+        document.getElementById('modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
     </script>
 </body>
 </html>
